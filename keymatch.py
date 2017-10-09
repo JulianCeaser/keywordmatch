@@ -16,7 +16,7 @@ from subprocess import Popen, PIPE, call
 import rarfile
 
 # Bro Locations
-noticelog = 'notice.log'  # '/usr/local/seceon/bro/logs/current/notice.log'
+noticedir = '/home/vikram/PycharmProjects/keywordmatch/vikram/'  # '/usr/local/seceon/bro/logs/current/notice.log'
 keywords = 'testing/kwlist.txt'  # '/usr/local/seceon/bro/share/bro/site/file-extraction/kwlist.txt'
 filelocation = '/home/vikram/PycharmProjects/keywordmatch/testing'  # '/usr/local/seceon/bro/logs/current/extract_files'
 
@@ -42,7 +42,7 @@ fext = os.path.splitext(filename)[1]
 
 # Global variables
 complex_extensions = ['.docx']
-simple_extensions = ['.pdf', '.txt', '.doc', '.html', 'htm', 'rtf', 'xml', 'xls', 'json']
+simple_extensions = ['.pdf', '.txt', '.doc', '.html', '.htm', '.rtf', '.xml', '.xls', '.json', '.log']
 compressed_extensions = ['.tar', '.gz', '.zip', 'rar']
 supported_extensions = complex_extensions + simple_extensions
 FNULL = open(os.devnull, 'w')
@@ -50,6 +50,9 @@ FNULL = open(os.devnull, 'w')
 
 def notice_printer(filename):
     counter = 100
+    cmd = ('mkdir -p %s' % noticedir).split()
+    call(cmd)
+    noticelog = noticedir + 'keywordnotice_' + filename
     while counter:
         try:
             with open(noticelog, 'a') as the_file:
